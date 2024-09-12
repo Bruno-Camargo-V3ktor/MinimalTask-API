@@ -1,0 +1,8 @@
+
+spring:
+  application:
+    name: MinimalTask-API
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/MinimalTask-APP
