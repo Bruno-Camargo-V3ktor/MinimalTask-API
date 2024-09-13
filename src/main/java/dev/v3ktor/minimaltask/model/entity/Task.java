@@ -24,7 +24,7 @@ public class Task {
     }
 
     //Getters & Setters
-    public ObjectId getId() { return id; }
+    public String getId() { return id.toHexString(); }
     public void setId(ObjectId id) { this.id = id; }
 
     public String getTitle() { return title; }
