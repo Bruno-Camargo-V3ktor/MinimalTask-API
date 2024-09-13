@@ -1,5 +1,6 @@
 package dev.v3ktor.minimaltask.service;
 
+import dev.v3ktor.minimaltask.exception.EntityNotFindException;
 import dev.v3ktor.minimaltask.model.entity.Task;
 import dev.v3ktor.minimaltask.model.entity.User;
 import dev.v3ktor.minimaltask.model.repository.UserRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -35,8 +37,14 @@ public class TaskService {
     {
         var user = userService.getUserById( userId );
 
-        return user.getTasks().stream()
-                .filter((task) -> task.getId() == id).toList().getFirst();
+        try {
+            return user.getTasks().stream()
+                    .filter((task) -> task.getId() == id).toList().getFirst();
+        }
+        catch ( NoSuchElementException e)
+        {
+            throw new EntityNotFindException( "Task not exist" );
+        }
     }
 
     public List< Task > getAllTasksByUserId( String userId )
