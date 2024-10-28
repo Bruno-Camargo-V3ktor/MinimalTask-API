@@ -11,16 +11,16 @@ public class User {
 
     //Propriedade
     @Id private ObjectId id;
-    private String name;
+    private String email;
     private String username;
     private String password;
     private List<Task> tasks = new ArrayList<Task>();
 
     //Contrutores
     public User() {}
-    public User(ObjectId id, String name, String username, String password, List<Task> tasks) {
+    public User(ObjectId id, String email, String username, String password, List<Task> tasks) {
         this.id = id;
-        this.name = name;
+        this.email = email;
         this.username = username;
         this.password = password;
         this.tasks = tasks;
@@ -30,8 +30,8 @@ public class User {
     public String getId() { return id.toHexString(); }
     public void setId(ObjectId id) { this.id = id; }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getEmail() { return email; }
+    public void setEmail(String name) { this.email = name; }
 
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
@@ -47,7 +47,7 @@ public class User {
     public String toString() {
         final StringBuilder sb = new StringBuilder("User{");
         sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
+        sb.append(", email='").append(email).append('\'');
         sb.append(", username='").append(username).append('\'');
         sb.append(", password='").append(password).append('\'');
         sb.append(", tasks=").append(tasks);

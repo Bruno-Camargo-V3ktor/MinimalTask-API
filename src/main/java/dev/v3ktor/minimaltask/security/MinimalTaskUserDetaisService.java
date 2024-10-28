@@ -22,7 +22,7 @@ public class MinimalTaskUserDetaisService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         var userDb = userService.getUserByUsername(username);
-        
+
         return User
                 .withUsername( userDb.getUsername() )
                 .password( userDb.getPassword() )
