@@ -5,6 +5,8 @@ import dev.v3ktor.minimaltask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController @RequestMapping("/api/users")
@@ -21,6 +23,16 @@ public class UserResource {
         if( savedUser == null ) { return ResponseEntity.status( HttpStatus.BAD_REQUEST ).build(); }
 
         return ResponseEntity.status( HttpStatus.CREATED ).body( savedUser );
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity< User > login() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var userDetails = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+        var user = service.getUserByUsername( userDetails.getUsername() );
+
+        return ResponseEntity.ok( user );
     }
 
     @GetMapping("/{USER_ID}")
