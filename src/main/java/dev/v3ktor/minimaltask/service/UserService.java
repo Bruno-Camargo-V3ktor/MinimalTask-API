@@ -19,8 +19,16 @@ public class UserService {
         return userRepository.findById( new ObjectId( id ) ).orElseThrow( () -> new EntityNotFindException("User not exist") );
     }
 
+    public User getUserByUsername(String username )
+    {
+        return userRepository.findByUsername( username ).orElse( null );
+    }
+
     public User createUser( User newUser )
     {
+        var user = getUserByUsername( newUser.getUsername() );
+        if ( user != null ) { return null; }
+
         return userRepository.save( newUser );
     }
 

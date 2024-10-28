@@ -18,6 +18,8 @@ public class UserResource {
     public ResponseEntity< User > create( @RequestBody User user )
     {
         var savedUser = service.createUser( user );
+        if( savedUser == null ) { return ResponseEntity.status( HttpStatus.BAD_REQUEST ).build(); }
+
         return ResponseEntity.status( HttpStatus.CREATED ).body( savedUser );
     }
 
@@ -28,5 +30,11 @@ public class UserResource {
         return ResponseEntity.ok( user );
     }
 
+    @GetMapping("/exist/{USERNAME}")
+    public ResponseEntity< Boolean > existedByUsername( @PathVariable("USERNAME") String username )
+    {
+        var user = service.getUserByUsername( username );
+        return ResponseEntity.ok( user != null );
+    }
 
 }
