@@ -5,6 +5,7 @@ import dev.v3ktor.minimaltask.model.entity.User;
 import dev.v3ktor.minimaltask.model.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +13,7 @@ public class UserService {
 
     //Atributos
     @Autowired private UserRepository userRepository;
+    @Autowired private PasswordEncoder passwordEncoder;
 
     //Métodos
     public User getUserById(String id )
@@ -29,6 +31,7 @@ public class UserService {
         var user = getUserByUsername( newUser.getUsername() );
         if ( user != null ) { return null; }
 
+        newUser.setPassword( passwordEncoder.encode( newUser.getPassword() ) );
         return userRepository.save( newUser );
     }
 
