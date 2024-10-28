@@ -1,8 +1,9 @@
 package dev.v3ktor.minimaltask.configuration;
 
+import dev.v3ktor.minimaltask.security.MinimalTaskUserDetaisService;
+import dev.v3ktor.minimaltask.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -34,6 +35,11 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    @Bean
+    public MinimalTaskUserDetaisService userDetailsService( UserService userService ) {
+        return new MinimalTaskUserDetaisService( userService );
     }
 
 }
