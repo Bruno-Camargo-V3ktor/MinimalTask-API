@@ -25,7 +25,7 @@ public class TaskService {
     public Task createTaskByUserId( String userId, Task newTask )
     {
         var user = userService.getUserById( userId );
-        var task = new Task( new ObjectId(), newTask.getTitle(), false, newTask.getTargetDate());
+        var task = new Task( new ObjectId(), newTask.getTitle(), false, newTask.getTargetDate(), null);
 
         user.getTasks().add( task );
         userRepository.save( user );

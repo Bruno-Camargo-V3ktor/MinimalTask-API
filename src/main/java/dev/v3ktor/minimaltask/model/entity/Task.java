@@ -2,7 +2,6 @@ package dev.v3ktor.minimaltask.model.entity;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-
 import java.time.LocalDate;
 
 public class Task {
@@ -12,15 +11,16 @@ public class Task {
     private String title;
     private Boolean done;
     private LocalDate targetDate;
-
+    private LocalDate finishedDate;
 
     //Construtores
     public Task() {}
-    public Task(ObjectId id, String title, Boolean done, LocalDate targetDate) {
+    public Task(ObjectId id, String title, Boolean done, LocalDate targetDate, LocalDate finishedDate) {
         this.id = id;
         this.title = title;
         this.done = done;
         this.targetDate = targetDate;
+        this.finishedDate = finishedDate;
     }
 
     //Getters & Setters
@@ -36,6 +36,9 @@ public class Task {
     public LocalDate getTargetDate() { return targetDate; }
     public void setTargetDate(LocalDate targetDate) { this.targetDate = targetDate; }
 
+    public LocalDate getFinishedDate() { return finishedDate; }
+    public void setFinishedDate(LocalDate finishedDate) { this.finishedDate = finishedDate; }
+
     //Métodos
     @Override
     public String toString() {
@@ -44,9 +47,8 @@ public class Task {
         sb.append(", title='").append(title).append('\'');
         sb.append(", done=").append(done);
         sb.append(", targetDate=").append(targetDate);
+        sb.append(", finishedDate=").append(finishedDate);
         sb.append('}');
         return sb.toString();
     }
-
-
 }
