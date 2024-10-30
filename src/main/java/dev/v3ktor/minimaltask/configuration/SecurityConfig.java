@@ -21,8 +21,8 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests( request -> {
 
-            request.requestMatchers( "/api/users/{USER_ID}" ).authenticated();
-            request.requestMatchers( "/api/{USER_ID}/tasks", "/api/{USER_ID}/tasks/**" ).authenticated();
+            request.requestMatchers( "/api/users/{USER_ID}" ).hasAnyAuthority( "ROLE_USER" );
+            request.requestMatchers( "/api/{USER_ID}/tasks", "/api/{USER_ID}/tasks/**" ).hasAnyAuthority( "ROLE_USER" );
 
             request.anyRequest().permitAll();
         } );
@@ -52,6 +52,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**").allowedOrigins("http://localhost:5000");
+                registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE");
             }
 
         };

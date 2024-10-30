@@ -1,6 +1,7 @@
 package dev.v3ktor.minimaltask.security;
 
 import dev.v3ktor.minimaltask.service.UserService;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,6 +27,7 @@ public class MinimalTaskUserDetaisService implements UserDetailsService {
         return User
                 .withUsername( userDb.getUsername() )
                 .password( userDb.getPassword() )
+                .authorities( new SimpleGrantedAuthority("ROLE_USER") )
                 .build();
     }
 
