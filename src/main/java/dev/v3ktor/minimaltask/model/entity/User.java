@@ -1,5 +1,7 @@
 package dev.v3ktor.minimaltask.model.entity;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,9 +13,9 @@ public class User {
 
     //Propriedade
     @Id private ObjectId id;
-    private String email;
-    private String username;
-    private String password;
+    @Email private String email;
+    @Size(min = 6, max = 20) private String username;
+    @Size(min = 6, max = 20) private String password;
     private List<Task> tasks = new ArrayList<Task>();
 
     //Contrutores
